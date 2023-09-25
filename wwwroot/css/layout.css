@@ -1,0 +1,248 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+    height:100vh;
+    overflow-y:hidden;
+}
+
+i {
+    padding: 0px 10px;
+}
+
+a {
+    color: blue;
+}
+
+ 
+
+.white {
+    color: white;
+}
+
+a:hover {
+    text-decoration: underline !important;
+    color: aliceblue !important;
+}
+
+
+.dashboard {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #1a1a1a;
+    color: white;
+    overflow: hidden;
+    transition: width 0.3s ease-in-out;
+}
+
+    .sidebar.active {
+        width: 80px;
+        text-align: center;
+        display: flex;
+        align-items: flex-start;
+    }
+
+.user-nav {
+    display: flex;
+    flex-direction: row;
+    padding-left: 0;
+    margin-bottom: 0;
+    display: flex;
+    list-style: none;
+    list-style-type: none;
+}
+
+.nav-link text-dark{
+    color:white;
+}
+
+.link {
+    color: white;
+    padding: 10px;
+    text-decoration: none;  
+    position: relative;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+    /* Add an after pseudo-element for the moving line */
+    .link::after {
+        content: "";
+        display: block;
+        height: 2px; /* Height of the moving line */
+        width: 0; /* Initial width is 0 */
+        background-color: #333; /* Color of the moving line */
+        position: absolute;
+        bottom: -2px; /* Position the line just below the text */
+        left: 0;
+        transition: width 0.3s ease;
+    }
+
+    /* Define the hover effect */
+    .link:hover {
+        color: #ff5733; /* Change link text color on hover */
+    }
+
+        .link:hover::after {
+            width: 100%; /* Expand the line to 100% width on hover */
+        }
+.logo-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: black;
+    padding: 10px;
+    background: #1a1a1a; 
+}
+
+.logo {
+    font-size: 2rem;
+    color: white;
+    text-align: center;
+    background: url(https://www.ycubedesign.com/files/2022/03/220316_NSK-LOGO.png) no-repeat;
+    background-size: cover;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    transform: scale(1.9);
+}
+
+.logo-text {
+    font-size: 1.2rem;
+    color: white;
+    text-align: center;
+    margin: 10px 0 0 0;
+    line-height: 0.5rem;
+    padding: 10px 0px;
+    font-weight: bold;
+}
+
+.outlet {
+    font-weight: bold;
+    text-align: center;
+    font-size: 0.9rem;
+    padding: 2px 0px;
+    color: white;
+}
+
+.user {
+    color: white;
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+    .menu li {
+        padding: 10px 20px;
+        transition: background-color 0.3s, padding-left 0.3s;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        cursor: pointer;
+    }
+
+        .menu li.active {
+            background-color: green;
+        }
+
+        .menu li:hover {
+            background-color: #444;
+        }
+
+.sub-nav-login-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.content {
+    flex: 1;
+}
+
+.topbar {
+    background-color: #1a1a1a;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-toggle {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 20px;
+    width: 30px;
+    padding: 10px;
+}
+
+.bar {
+    width: 100%;
+    height: 3px;
+    background-color: white;
+}
+
+.user-profile {
+    padding: 15px;
+}
+
+
+
+.menu-content {
+    display: none; 
+    flex-direction: column;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: stretch;
+}
+
+    .menu-content.active {
+        display: block;
+    }
+
+.hidden {
+    display: none;
+}
+
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    background: green;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 2px 2px 2px #c2c2c2; /* Add a white shadow to the bottom right */
+    box-shadow: 2px 2px 2px #c2c2c2; /* Add a white shadow to the bottom right (for modern browsers) */
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 70px;
+    }
+
+        .sidebar.active {
+            width: 250px;
+        }
+
+    .menu li a {
+        padding-left: 20px;
+    }
+
+    .logo-container,
+    .menu-toggle,
+    .tab-name {
+        display: none;
+    }
+
+    .topbar {
+        justify-content: flex-end;
+    }
+}
+

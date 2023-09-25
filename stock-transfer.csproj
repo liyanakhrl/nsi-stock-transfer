@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>aspnet-stock_transfer-e2e8e1a2-8271-4622-9753-3c0041b73463</UserSecretsId>
+		<RootNamespace>stock_transfer</RootNamespace>
+  <ResolveStaticWebAssetsInputsDependsOn>RemoveIdentityAssets</ResolveStaticWebAssetsInputsDependsOn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- Other package references... -->
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.15" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.15" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.15" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.15" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.15" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
+	</ItemGroup>
+
+<Target Name="RemoveIdentityAssets">
+  <ItemGroup>
+    <StaticWebAsset Remove="@(StaticWebAsset)" Condition="%(SourceId) == 'Microsoft.AspNetCore.Identity.UI'" />
+  </ItemGroup>
+</Target>
+</Project>
+

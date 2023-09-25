@@ -1,0 +1,306 @@
+﻿body {
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    font-size: 2rem;
+    text-align: center;
+}
+
+#button-group {
+    background-color: #333;
+    overflow: hidden;
+    padding: 10px;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    display: flex;
+}
+
+    #button-group button {
+        background-color: #444;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+        #button-group button:hover {
+            background-color: #555;
+        }
+
+    #button-group .button-active {
+        background-color: #007bff; /* Change to your desired active button style */
+        color: #fff; /* Text color for active button */
+    }
+
+
+.hidden {
+    display: none;
+}
+
+
+/* NEW REQUEST */
+.tabs {
+    display: flex;
+    background-color: #707070;
+    color: white;
+    font-weight: bold;
+}
+
+button.active {
+    text-transform: uppercase;
+    color: white;
+    font-weight: bold;
+    background: yellow;
+}
+
+.tabs button {
+    flex: 1;
+    padding: 10px 0;
+    border: none;
+    background-color: #c2c2c2;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 0;
+}
+
+    .tabs button:hover {
+        background-color: #c2c2c2;
+    }
+
+    .tabs button.active {
+        background: green;
+    }
+
+.tab-content {
+    display: none;
+    padding: 20px;
+}
+
+.active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+/*
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 3px;
+    text-align: left;
+}
+
+th {
+    background-color: #c2c2c2;
+    color: black;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}*/
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat( auto-fill, minmax(100px, 1fr) ); /* Adjust the width as needed */
+    gap: 5px; /* Adjust the gap between grid items */
+}
+
+/* CSS for grid items (boxes) */
+.grid-item {
+    color: black;
+    text-align: left;
+    border-radius: 5px;
+}
+
+.summary {
+    display: flex;
+    flex-direction: row;
+}
+
+.add-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+    .add-button:hover {
+        background-color: #0056b3;
+    }
+
+/* Updated styles for Tab 3 (Summary Table) */
+#tab3 {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+    #tab3 h2 {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+#summary-table {
+    width: 100%;
+}
+
+    #summary-table th,
+    #summary-table td {
+        padding: 5px;
+        text-align: left;
+        text-align: center;
+    }
+
+    #summary-table th {
+        background-color: #c2c2c2;
+        color: black;
+    }
+
+    #summary-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #summary-table tr:hover {
+        background-color: #dcdcdc;
+    }
+
+
+/*HQ REQUEST*/
+.status-list {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+}
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: normal;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    padding: 10px;
+    overflow-y: auto;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.status-item-container {
+    display: flex;
+    align-items: center; /* Vertically align items */
+    overflow-y: auto;
+}
+
+.left {
+    flex: 1; /* Take up remaining space */
+    display: flex;
+    align-items: center; /* Vertically align items */
+}
+
+.icon {
+    font-size: 24px; /* Adjust the icon size */
+    margin-right: 10px; /* Add spacing between icon and text */
+}
+
+.text {
+    font-size: 18px; /* Adjust the text size */
+}
+
+.submit-by {
+    font-size: 13px;
+    color: green;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+.date-created {
+    font-size: 14px;
+    color: #050505;
+    text-transform: uppercase;
+    font-weight: normal;
+    padding: 0 10px;
+}
+
+.menu-last-tab {
+    display: flex;
+    gap: 10px; /* Add spacing between menu items */
+}
+
+.menu-item {
+    font-size: 20px; /* Adjust the menu item size */
+}
+
+.status-icon {
+    font-size: 24px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.status-summary {
+    display: none;
+    padding: 10px;
+    margin: 10px 0;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.item-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .item-table th,
+    .item-table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .item-table th {
+        background-color: #c2c2c2;
+        color: black;
+    }
+
+    .item-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .item-table tr:hover {
+        background-color: #dcdcdc;
+    }

@@ -1,0 +1,87 @@
+﻿@page
+@model stock_transfer.Pages.ItemsModel
+@{
+    ViewData["Title"] = "Items";
+}
+ 
+<link rel="stylesheet" href="~/css/table.css" asp-append-version="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<body>
+    <div class="inventory-container">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <table id="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody id="data-body">
+                @foreach (var item in Model.Item)
+                {
+                    <tr>
+                        <td>@item.Item_Code</td>
+                        <td>@item.LongDesc</td>
+                        <td>@item.Type</td>
+                        <!-- Add more table cells for other properties as needed -->
+                    </tr>
+                }
+            </tbody>
+            <!--  <tbody id="data-body"></tbody>-->
+        </table>
+        <div class="pagination" id="pagination">
+            @for (int i = 1; i <= 15; i++)
+            {   // Check if the current page number matches the selected page
+
+                <a class="page" href="?pageNumber=@i">@i</a>
+            }
+        </div>
+    </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.min.js"></script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/item.js" asp-append-version="true"></script>
+    <script>
+        var items = @Html.Raw(Json.Serialize(Model.Item)); // Get the initial data
+        // Function to filter and update the table
+        function filterTable(searchText) {
+
+            var filteredItems = items.filter(function (item) {
+                // Modify the filter criteria as needed
+                return item.longDesc.toLowerCase().includes(searchText.toLowerCase());
+            });
+
+            // Update the table body with filtered data
+            var tbody = document.getElementById('data-body');
+            tbody.innerHTML = ''; // Clear the current table data
+
+            filteredItems.forEach(function (item) {
+                var row = document.createElement('tr');
+                row.innerHTML = `
+                                                    <td>${item.item_Code}</td>
+                                                    <td>${item.longDesc}</td>
+                                                    <td>${item.type}</td>
+                                        `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Add an event listener to the search input
+        var searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function () {
+            var searchText = searchInput.value;
+            filterTable(searchText);
+        });
+
+    </script>
+
+</body>

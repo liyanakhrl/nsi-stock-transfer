@@ -1,0 +1,70 @@
+﻿@page
+@model stock_transfer.Pages.InventoryModel
+@{ ViewData["Title"] = "Inventory";
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/table.css" asp-append-version="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+
+<div class="filter-container">
+    <select id="storeDropdown" onchange="redirectToSelectedStore()">
+        @foreach (var store in Model.Store)
+        {
+            <option value="@store.Store_Code">@store.Store_Name</option>
+        }
+    </select>
+</div>
+
+<div class="table-container">
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Shop ID</th>
+                <th>Type</th>
+                <th>OpeningQty</th>
+                <th>ClosingQty</th>
+                <th>TransferInQty</th>
+                <th>TransferOutQty</th>
+            </tr>
+        </thead>
+        <tbody id="data-body">
+            @foreach (var item in Model.InventorySummary)
+            {
+                <tr>
+                    <td>@item.Description</td>
+                    <td>@item.Department_Code</td>
+                    <td>@item.ShopID</td>
+                    <td>@item.Type</td>
+                    <td>@item.OpeningQty</td>
+                    <td>@item.ClosingQty</td>
+                    <td>@item.Transfer_InQty</td>
+                    <td>@item.Transfer_InQty</td>
+                    <!-- Add more table cells for other properties as needed -->
+                </tr>
+            }
+        </tbody>
+        <!--  <tbody id="data-body"></tbody>-->
+    </table>
+    <div class="pagination" id="pagination">
+        @for (int i = 1; i <= 15; i++)
+        {   // Check if the current page number matches the selected page
+
+            <a class="page" href="?pageNumber=@i">@i</a>
+        }
+    </div>
+
+
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/json2/20160511/json2.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/inventory.js" asp-append-version="true"></script>

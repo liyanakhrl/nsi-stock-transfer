@@ -1,0 +1,38 @@
+﻿html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+}
+
+/* Set full height for the .dashboard container */
+.index-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* You can adjust this as needed */
+    overflow-y:auto;
+}
+
+/* Styling for the individual dashboard items */
+.dashboard-item {
+    flex: 1; /* This ensures that each item takes an equal amount of space */
+    max-width: calc(33.33% - 20px); /* Adjust the width as needed */
+    margin: 10px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+/* Responsive styling for smaller screens */
+@media screen and (max-width: 768px) {
+    .dashboard-item {
+        max-width: calc(50% - 20px); /* Adjust the width for smaller screens */
+    }
+}
+
+/* Responsive styling for even smaller screens */
+@media screen and (max-width: 480px) {
+    .dashboard-item {
+        max-width: 100%; /* Each item takes up the full width */
+    }
+}

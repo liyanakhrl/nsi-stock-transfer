@@ -1,0 +1,301 @@
+﻿@page
+@model stock_transfer.Pages.StockTransferModel
+@{
+    ViewData["Title"] = "Stock Transfer";
+}
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/stockTransfer.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/table.css" asp-append-version="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<body>
+    <div id="button-group">
+        <button class="button-main" id="new-request-btn">New Stock request</button>
+        <button class="button-main" id="show-request-btn">HQ Request</button>
+        <button class="button-main" id="status-btn">Stock Request Status</button>
+    </div>
+    <div id="content">
+        <div id="new-request" class="hidden">
+            <!-- Add content for "Make new stock request" here -->
+            <div class="tabs">
+                <button id="btn-tab-1" class="button active" onclick="openTab('tab1','btn-tab-1')">Header</button>
+                <button id="btn-tab-2" class="button" onclick="openTab('tab2','btn-tab-2')">Items</button>
+                <button id="btn-tab-3" class="button" onclick="openTab('tab3','btn-tab-3')">Summary</button>
+            </div>
+
+
+            <div id="tab1" class="tab-content active">
+                <!-- Tab 1 content - Form groups -->
+                <h2>Set Request Header</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" name="quantity">
+                    </div>
+                    <!-- Add more form groups as needed -->
+                </form>
+            </div>
+
+            <div id="tab2" class="tab-content">
+                <!-- Tab 2 content - Search bar, dropdown, and table with pagination -->
+                <h2>Select Items</h2>
+                <div class="grid-container">
+                    <input type="text" id="searchInput" placeholder="Search..." oninput="filterTable()">
+                    <select id="categorySelect" onchange="filterTable()">
+                        <option value="all">All Categories</option>
+                        <option value="category1">Category 1</option>
+                        <option value="category2">Category 2</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+                <div class="table-container" style="max-height:40vh">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Department</th>
+                                <th>Qty</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Masterfile_Items)
+                            {
+                                <tr>
+                                    <td>@item.Item_Code</td>
+                                    <td>@item.LongDesc</td>
+                                    <td>@item.Type</td>
+                                    <td>@item.Department_Code</td>
+                                    <td><input type="number" id="quantityInput_@item.Item_Code" /></td>
+                                    <td>
+                                        <button class="add-button"
+                                                onclick="addItemToTab3('@item.Item_Code','@item.LongDesc', '@item.Department_Code', this.parentElement.parentElement.querySelector('input[type=number]').value)">
+                                            Add
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <!--  <tbody id="itemsTbody">
+            <!--  <tbody id="itemsTbody">addItemToTab3
+            <tr>
+                <td>Item 1</td>
+                <td>Category 1</td>
+                <td>10</td>
+                <td><button class="add-button" onclick="addItemToTab3('Item 1', 'Category 1', 10)">Add</button></td>
+            </tr>
+            <tr>
+                <td>Item 2</td>
+                <td>Category 2</td>
+                <td>5</td>
+                <td><button class="add-button" onclick="addItemToTab3('Item 2', 'Category 2', 5)">Add</button></td>
+            </tr>
+                      </tbody>-->
+                    </table>
+                </div>
+                <div class="pagination" id="pagination">
+                    @for (int i = 1; i <= 15; i++)
+                    {   // Check if the current page number matches the selected page
+
+                        <a class="page" href="?pageNumber=@i">@i</a>
+                    }
+                </div>
+                <!--<div class="pagination">
+    </div>-->
+            </div>
+
+            <div id="tab3" class="tab-content">
+                <!-- Tab 3 content - Summary Table -->
+                <h2>Summary</h2>
+                <div class="grid-container">
+                    <!-- Row 1 -->
+                    <div class="grid-item">Name</div>
+                    <div class="grid-item"><p class="name-summary"></p></div>
+                    <div class="grid-item">Quantity</div>
+                    <div class="grid-item"><p class="qty-summary"></div>
+
+                    <!-- Add more grid items as needed -->
+                </div>
+                <div class="table-container" style="max-height: 40vh;">
+                <table id="summary-table">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Long Description</th>
+                            <th>Dept Code</th>
+                            <th>Qty</th>
+                        </tr>
+                    </thead>
+                    <tbody id="summary-table-body">
+                        <!-- Summary table rows will be added here dynamically -->
+                    </tbody>
+                </table>
+                    </div>
+
+            </div>
+        </div>
+        <div id="show-request" class="hidden">
+            <!-- Add content for "Show HQ request" here -->
+            <!-- Your content goes here -->
+            <div class="status-list">
+                <div class="status-item">
+                    <div onclick="toggleSummary('summary1')">
+                        <span class="status-icon"><i class="fa fa-chevron-down"></i></span>
+                        Stock Request #1
+                    </div>
+                    <div id="summary1" class="status-summary">
+                        <h3>Summary for Stock Request #1</h3>
+                        <table class="item-table">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Item A</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>Item B</td>
+                                    <td>5</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="status-item">
+                    <div onclick="toggleSummary('summary2')">
+                        <span class="status-icon"><i class="fa fa-chevron-down"></i></span>
+                        Stock Request #2
+                    </div>
+                    <div id="summary2" class="status-summary">
+                        <h3>Summary for Stock Request #2</h3>
+                        <table class="item-table">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Item X</td>
+                                    <td>8</td>
+                                </tr>
+                                <tr>
+                                    <td>Item Y</td>
+                                    <td>12</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Add more status items as needed -->
+            </div>
+        </div>
+        <div id="status" class="hidden">
+            <!-- Add content for "Stock Request status" here -->
+            <!-- Your content goes here -->     <div class="status-list">
+                <div class="status-item">
+                    <div class="status-item-container" onclick="toggleSummary('sr-summary1')">
+                        <div class="left">
+                            <div class="icon"><i class="fa fa-chevron-down"></i></div>
+                            <div class="text">Stock Request #1</div>
+                            <div class="text submit-by">John Doe</div>
+                        </div>
+                        <div class="menu-last-tab">
+                            <div class="menu-item"><span class="date-created">2023-09-16 16:10:20</span></div>
+                            <div class="menu-item">🏠</div>
+                            <div class="menu-item">📁</div>
+                            <div class="menu-item">⚙️</div>
+                        </div>
+                    </div>
+                    <div id="sr-summary1" class="status-summary">
+                        <h3>Summary for Stock Request #1</h3>
+                        <table class="item-table">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Item A</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>Item B</td>
+                                    <td>5</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="status-item">
+                    <div class="status-item-container" onclick="toggleSummary('sr-summary2')">
+                        <div class="left">
+                            <div class="icon"><i class="fa fa-chevron-down"></i></div>
+                            <div class="text">Stock Request #1</div>
+                            <div class="text submit-by">Hanna Doe</div>
+                        </div>
+                        <div class="menu-last-tab">
+                            <div class="menu-item"><span class="date-created">2023-09-15 16:10:20</span></div>
+                            <div class="menu-item">🏠</div>
+                            <div class="menu-item">📁</div>
+                            <div class="menu-item">⚙️</div>
+                        </div>
+                    </div>
+                    <div id="sr-summary2" class="status-summary">
+                        <h3>Summary for Stock Request #2</h3>
+                        <table class="item-table">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Item X</td>
+                                    <td>8</td>
+                                </tr>
+                                <tr>
+                                    <td>Item Y</td>
+                                    <td>12</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Add more status items as needed -->
+            </div>
+
+        </div>
+    </div>  
+    <script>
+
+        var event = @Html.Raw(Json.Serialize(Model.Masterfile_Items));
+       function addTocart(item) {
+           console.log("add",item)
+       }
+    </script>
+     <script src="~/js/stockTransfer.js" asp-append-version="true"></script> 
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>

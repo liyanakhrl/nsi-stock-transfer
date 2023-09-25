@@ -1,0 +1,39 @@
+﻿@page
+@model stock_transfer.Pages.StoreModel
+@{ViewData["Title"] = "Store";
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/table.css" asp-append-version="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<body>
+    <div class="table-container">
+        <h1>Store List</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Store Code</th>
+                    <th>Store Name</th>
+                    <th>Telephone</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var store in Model.Store)
+                {
+                    <tr>
+                        <td>@store.Store_ID</td>
+                        <td>@store.Store_Code</td>
+                        <td>@store.Store_Name</td>
+                        <td>@store.Tel1</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</body>
